@@ -1,0 +1,596 @@
+scalar BigFloat
+
+input BigFloatFilter {
+  eq: BigFloat
+  gt: BigFloat
+  gte: BigFloat
+  in: [BigFloat!]
+  is: FilterIs
+  lt: BigFloat
+  lte: BigFloat
+  neq: BigFloat
+}
+
+input BigFloatListFilter {
+  containedBy: [BigFloat!]
+  contains: [BigFloat!]
+  eq: [BigFloat!]
+  is: FilterIs
+  overlaps: [BigFloat!]
+}
+
+scalar BigInt
+
+input BigIntFilter {
+  eq: BigInt
+  gt: BigInt
+  gte: BigInt
+  in: [BigInt!]
+  is: FilterIs
+  lt: BigInt
+  lte: BigInt
+  neq: BigInt
+}
+
+input BigIntListFilter {
+  containedBy: [BigInt!]
+  contains: [BigInt!]
+  eq: [BigInt!]
+  is: FilterIs
+  overlaps: [BigInt!]
+}
+
+input BooleanFilter {
+  eq: Boolean
+  is: FilterIs
+}
+
+input BooleanListFilter {
+  containedBy: [Boolean!]
+  contains: [Boolean!]
+  eq: [Boolean!]
+  is: FilterIs
+  overlaps: [Boolean!]
+}
+
+type comments implements Node {
+  author_id: UUID
+  body: String!
+  created_at: Datetime
+  uuid: UUID!
+  issue_id: UUID
+  issues: issues
+  id: ID!
+  users: users
+}
+
+type commentsConnection {
+  edges: [commentsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type commentsDeleteResponse {
+  affectedCount: Int!
+  records: [comments!]!
+}
+
+type commentsEdge {
+  cursor: String!
+  node: comments!
+}
+
+input commentsFilter {
+  and: [commentsFilter!]
+  author_id: UUIDFilter
+  body: StringFilter
+  created_at: DatetimeFilter
+  id: UUIDFilter
+  issue_id: UUIDFilter
+  nodeId: IDFilter
+  not: commentsFilter
+  or: [commentsFilter!]
+}
+
+input commentsInsertInput {
+  author_id: UUID
+  body: String
+  created_at: Datetime
+  id: UUID
+  issue_id: UUID
+}
+
+type commentsInsertResponse {
+  affectedCount: Int!
+  records: [comments!]!
+}
+
+input commentsOrderBy {
+  author_id: OrderByDirection
+  body: OrderByDirection
+  created_at: OrderByDirection
+  id: OrderByDirection
+  issue_id: OrderByDirection
+}
+
+input commentsUpdateInput {
+  author_id: UUID
+  body: String
+  created_at: Datetime
+  id: UUID
+  issue_id: UUID
+}
+
+type commentsUpdateResponse {
+  affectedCount: Int!
+  records: [comments!]!
+}
+
+scalar Cursor
+
+scalar Date
+
+input DateFilter {
+  eq: Date
+  gt: Date
+  gte: Date
+  in: [Date!]
+  is: FilterIs
+  lt: Date
+  lte: Date
+  neq: Date
+}
+
+input DateListFilter {
+  containedBy: [Date!]
+  contains: [Date!]
+  eq: [Date!]
+  is: FilterIs
+  overlaps: [Date!]
+}
+
+scalar Datetime
+
+input DatetimeFilter {
+  eq: Datetime
+  gt: Datetime
+  gte: Datetime
+  in: [Datetime!]
+  is: FilterIs
+  lt: Datetime
+  lte: Datetime
+  neq: Datetime
+}
+
+input DatetimeListFilter {
+  containedBy: [Datetime!]
+  contains: [Datetime!]
+  eq: [Datetime!]
+  is: FilterIs
+  overlaps: [Datetime!]
+}
+
+enum FilterIs {
+  NULL
+  NOT_NULL
+}
+
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: FilterIs
+  lt: Float
+  lte: Float
+  neq: Float
+}
+
+input FloatListFilter {
+  containedBy: [Float!]
+  contains: [Float!]
+  eq: [Float!]
+  is: FilterIs
+  overlaps: [Float!]
+}
+
+input IDFilter {
+  eq: ID
+}
+
+input IntFilter {
+  eq: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  is: FilterIs
+  lt: Int
+  lte: Int
+  neq: Int
+}
+
+input IntListFilter {
+  containedBy: [Int!]
+  contains: [Int!]
+  eq: [Int!]
+  is: FilterIs
+  overlaps: [Int!]
+}
+
+type issue_labels implements Node {
+  uuid: UUID!
+  issues: issues!
+  uuid: UUID!
+  labels: labels!
+  id: ID!
+}
+
+type issue_labelsConnection {
+  edges: [issue_labelsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type issue_labelsDeleteResponse {
+  affectedCount: Int!
+  records: [issue_labels!]!
+}
+
+type issue_labelsEdge {
+  cursor: String!
+  node: issue_labels!
+}
+
+input issue_labelsFilter {
+  and: [issue_labelsFilter!]
+  issue_id: UUIDFilter
+  label_id: UUIDFilter
+  nodeId: IDFilter
+  not: issue_labelsFilter
+  or: [issue_labelsFilter!]
+}
+
+input issue_labelsInsertInput {
+  issue_id: UUID
+  label_id: UUID
+}
+
+type issue_labelsInsertResponse {
+  affectedCount: Int!
+  records: [issue_labels!]!
+}
+
+input issue_labelsOrderBy {
+  issue_id: OrderByDirection
+  label_id: OrderByDirection
+}
+
+input issue_labelsUpdateInput {
+  issue_id: UUID
+  label_id: UUID
+}
+
+type issue_labelsUpdateResponse {
+  affectedCount: Int!
+  records: [issue_labels!]!
+}
+
+type issues implements Node {
+  assignee_id: UUID
+  commentsCollection(after: Cursor, before: Cursor, filter: commentsFilter, first: Int, last: Int, offset: Int, orderBy: [commentsOrderBy!]): commentsConnection
+  created_at: Datetime
+  description: String
+  uuid: UUID!
+  issue_labelsCollection(after: Cursor, before: Cursor, filter: issue_labelsFilter, first: Int, last: Int, offset: Int, orderBy: [issue_labelsOrderBy!]): issue_labelsConnection
+  id: ID!
+  priority: String
+  status: String
+  title: String!
+  users: users
+}
+
+type issuesConnection {
+  edges: [issuesEdge!]!
+  pageInfo: PageInfo!
+}
+
+type issuesDeleteResponse {
+  affectedCount: Int!
+  records: [issues!]!
+}
+
+type issuesEdge {
+  cursor: String!
+  node: issues!
+}
+
+input issuesFilter {
+  and: [issuesFilter!]
+  assignee_id: UUIDFilter
+  created_at: DatetimeFilter
+  description: StringFilter
+  id: UUIDFilter
+  nodeId: IDFilter
+  not: issuesFilter
+  or: [issuesFilter!]
+  priority: StringFilter
+  status: StringFilter
+  title: StringFilter
+}
+
+input issuesInsertInput {
+  assignee_id: UUID
+  created_at: Datetime
+  description: String
+  id: UUID
+  priority: String
+  status: String
+  title: String
+}
+
+type issuesInsertResponse {
+  affectedCount: Int!
+  records: [issues!]!
+}
+
+input issuesOrderBy {
+  assignee_id: OrderByDirection
+  created_at: OrderByDirection
+  description: OrderByDirection
+  id: OrderByDirection
+  priority: OrderByDirection
+  status: OrderByDirection
+  title: OrderByDirection
+}
+
+input issuesUpdateInput {
+  assignee_id: UUID
+  created_at: Datetime
+  description: String
+  id: UUID
+  priority: String
+  status: String
+  title: String
+}
+
+type issuesUpdateResponse {
+  affectedCount: Int!
+  records: [issues!]!
+}
+
+scalar JSON
+
+type labels implements Node {
+  color: String
+  uuid: UUID!
+  issue_labelsCollection(after: Cursor, before: Cursor, filter: issue_labelsFilter, first: Int, last: Int, offset: Int, orderBy: [issue_labelsOrderBy!]): issue_labelsConnection
+  name: String!
+  id: ID!
+}
+
+type labelsConnection {
+  edges: [labelsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type labelsDeleteResponse {
+  affectedCount: Int!
+  records: [labels!]!
+}
+
+type labelsEdge {
+  cursor: String!
+  node: labels!
+}
+
+input labelsFilter {
+  and: [labelsFilter!]
+  color: StringFilter
+  id: UUIDFilter
+  name: StringFilter
+  nodeId: IDFilter
+  not: labelsFilter
+  or: [labelsFilter!]
+}
+
+input labelsInsertInput {
+  color: String
+  id: UUID
+  name: String
+}
+
+type labelsInsertResponse {
+  affectedCount: Int!
+  records: [labels!]!
+}
+
+input labelsOrderBy {
+  color: OrderByDirection
+  id: OrderByDirection
+  name: OrderByDirection
+}
+
+input labelsUpdateInput {
+  color: String
+  id: UUID
+  name: String
+}
+
+type labelsUpdateResponse {
+  affectedCount: Int!
+  records: [labels!]!
+}
+
+type Mutation {
+  deleteFromcommentsCollection(atMost: Int! = 1, filter: commentsFilter): commentsDeleteResponse!
+  deleteFromissue_labelsCollection(atMost: Int! = 1, filter: issue_labelsFilter): issue_labelsDeleteResponse!
+  deleteFromissuesCollection(atMost: Int! = 1, filter: issuesFilter): issuesDeleteResponse!
+  deleteFromlabelsCollection(atMost: Int! = 1, filter: labelsFilter): labelsDeleteResponse!
+  deleteFromusersCollection(atMost: Int! = 1, filter: usersFilter): usersDeleteResponse!
+  insertIntocommentsCollection(objects: [commentsInsertInput!]!): commentsInsertResponse
+  insertIntoissue_labelsCollection(objects: [issue_labelsInsertInput!]!): issue_labelsInsertResponse
+  insertIntoissuesCollection(objects: [issuesInsertInput!]!): issuesInsertResponse
+  insertIntolabelsCollection(objects: [labelsInsertInput!]!): labelsInsertResponse
+  insertIntousersCollection(objects: [usersInsertInput!]!): usersInsertResponse
+  updatecommentsCollection(atMost: Int! = 1, filter: commentsFilter, set: commentsUpdateInput!): commentsUpdateResponse!
+  updateissue_labelsCollection(atMost: Int! = 1, filter: issue_labelsFilter, set: issue_labelsUpdateInput!): issue_labelsUpdateResponse!
+  updateissuesCollection(atMost: Int! = 1, filter: issuesFilter, set: issuesUpdateInput!): issuesUpdateResponse!
+  updatelabelsCollection(atMost: Int! = 1, filter: labelsFilter, set: labelsUpdateInput!): labelsUpdateResponse!
+  updateusersCollection(atMost: Int! = 1, filter: usersFilter, set: usersUpdateInput!): usersUpdateResponse!
+}
+
+interface Node {
+  id: ID!
+}
+
+scalar Opaque
+
+input OpaqueFilter {
+  eq: Opaque
+  is: FilterIs
+}
+
+enum OrderByDirection {
+  AscNullsFirst
+  AscNullsLast
+  DescNullsFirst
+  DescNullsLast
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Query {
+  commentsCollection(after: Cursor, before: Cursor, filter: commentsFilter, first: Int, last: Int, offset: Int, orderBy: [commentsOrderBy!]): commentsConnection
+  issue_labelsCollection(after: Cursor, before: Cursor, filter: issue_labelsFilter, first: Int, last: Int, offset: Int, orderBy: [issue_labelsOrderBy!]): issue_labelsConnection
+  issuesCollection(after: Cursor, before: Cursor, filter: issuesFilter, first: Int, last: Int, offset: Int, orderBy: [issuesOrderBy!]): issuesConnection
+  labelsCollection(after: Cursor, before: Cursor, filter: labelsFilter, first: Int, last: Int, offset: Int, orderBy: [labelsOrderBy!]): labelsConnection
+  node(id: ID!): Node
+  usersCollection(after: Cursor, before: Cursor, filter: usersFilter, first: Int, last: Int, offset: Int, orderBy: [usersOrderBy!]): usersConnection
+}
+
+input StringFilter {
+  eq: String
+  gt: String
+  gte: String
+  ilike: String
+  in: [String!]
+  iregex: String
+  is: FilterIs
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  regex: String
+  startsWith: String
+}
+
+input StringListFilter {
+  containedBy: [String!]
+  contains: [String!]
+  eq: [String!]
+  is: FilterIs
+  overlaps: [String!]
+}
+
+scalar Time
+
+input TimeFilter {
+  eq: Time
+  gt: Time
+  gte: Time
+  in: [Time!]
+  is: FilterIs
+  lt: Time
+  lte: Time
+  neq: Time
+}
+
+input TimeListFilter {
+  containedBy: [Time!]
+  contains: [Time!]
+  eq: [Time!]
+  is: FilterIs
+  overlaps: [Time!]
+}
+
+type users implements Node {
+  avatar_url: String
+  commentsCollection(after: Cursor, before: Cursor, filter: commentsFilter, first: Int, last: Int, offset: Int, orderBy: [commentsOrderBy!]): commentsConnection
+  uuid: UUID!
+  issuesCollection(after: Cursor, before: Cursor, filter: issuesFilter, first: Int, last: Int, offset: Int, orderBy: [issuesOrderBy!]): issuesConnection
+  name: String!
+  id: ID!
+}
+
+type usersConnection {
+  edges: [usersEdge!]!
+  pageInfo: PageInfo!
+}
+
+type usersDeleteResponse {
+  affectedCount: Int!
+  records: [users!]!
+}
+
+type usersEdge {
+  cursor: String!
+  node: users!
+}
+
+input usersFilter {
+  and: [usersFilter!]
+  avatar_url: StringFilter
+  id: UUIDFilter
+  name: StringFilter
+  nodeId: IDFilter
+  not: usersFilter
+  or: [usersFilter!]
+}
+
+input usersInsertInput {
+  avatar_url: String
+  id: UUID
+  name: String
+}
+
+type usersInsertResponse {
+  affectedCount: Int!
+  records: [users!]!
+}
+
+input usersOrderBy {
+  avatar_url: OrderByDirection
+  id: OrderByDirection
+  name: OrderByDirection
+}
+
+input usersUpdateInput {
+  avatar_url: String
+  id: UUID
+  name: String
+}
+
+type usersUpdateResponse {
+  affectedCount: Int!
+  records: [users!]!
+}
+
+scalar UUID
+
+input UUIDFilter {
+  eq: UUID
+  in: [UUID!]
+  is: FilterIs
+  neq: UUID
+}
+
+input UUIDListFilter {
+  containedBy: [UUID!]
+  contains: [UUID!]
+  eq: [UUID!]
+  is: FilterIs
+  overlaps: [UUID!]
+}
