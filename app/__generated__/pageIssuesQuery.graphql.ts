@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7993e436a74387aa086e06ec5da0c590>>
+ * @generated SignedSource<<dd0c4d874aef59e3c746c325d62011d2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,14 +9,12 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-import { FragmentRefs } from "relay-runtime";
 export type pageIssuesQuery$variables = {};
 export type pageIssuesQuery$data = {
   readonly issuesCollection: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"IssueRow_issue">;
       };
     }>;
   } | null;
@@ -29,65 +27,59 @@ export type pageIssuesQuery = {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "Literal",
-    "name": "first",
-    "value": 10
-  }
-],
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
-return {
-  "fragment": {
-    "argumentDefinitions": [],
-    "kind": "Fragment",
-    "metadata": null,
-    "name": "pageIssuesQuery",
+    "alias": null,
+    "args": [
+      {
+        "kind": "Literal",
+        "name": "first",
+        "value": 10
+      }
+    ],
+    "concreteType": "issuesConnection",
+    "kind": "LinkedField",
+    "name": "issuesCollection",
+    "plural": false,
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
-        "concreteType": "issuesConnection",
+        "args": null,
+        "concreteType": "issuesEdge",
         "kind": "LinkedField",
-        "name": "issuesCollection",
-        "plural": false,
+        "name": "edges",
+        "plural": true,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "issuesEdge",
+            "concreteType": "issues",
             "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
+            "name": "node",
+            "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "issues",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v1/*: any*/),
-                  {
-                    "args": null,
-                    "kind": "FragmentSpread",
-                    "name": "IssueRow_issue"
-                  }
-                ],
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               }
             ],
             "storageKey": null
           }
         ],
-        "storageKey": "issuesCollection(first:10)"
+        "storageKey": null
       }
     ],
+    "storageKey": "issuesCollection(first:10)"
+  }
+];
+return {
+  "fragment": {
+    "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "pageIssuesQuery",
+    "selections": (v0/*: any*/),
     "type": "Query",
     "abstractKey": null
   },
@@ -96,75 +88,19 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "pageIssuesQuery",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v0/*: any*/),
-        "concreteType": "issuesConnection",
-        "kind": "LinkedField",
-        "name": "issuesCollection",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "issuesEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "issues",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v1/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "status",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "priority",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": "issuesCollection(first:10)"
-      }
-    ]
+    "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "7d42284e62b23e811bf05f958de3ccda",
+    "cacheID": "199b3fc7334501de046b38dbc3b8ca14",
     "id": null,
     "metadata": {},
     "name": "pageIssuesQuery",
     "operationKind": "query",
-    "text": "query pageIssuesQuery {\n  issuesCollection(first: 10) {\n    edges {\n      node {\n        id\n        ...IssueRow_issue\n      }\n    }\n  }\n}\n\nfragment IssueRow_issue on issues {\n  id\n  title\n  status\n  priority\n}\n"
+    "text": "query pageIssuesQuery {\n  issuesCollection(first: 10) {\n    edges {\n      node {\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c7310277189766c1abbf361ece688fc3";
+(node as any).hash = "d0030debc5b73c37934c3b2e4119f8ab";
 
 export default node;

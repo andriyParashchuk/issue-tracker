@@ -11,7 +11,6 @@ const query = graphql`
       edges {
         node {
           id: nodeId
-          ...IssueRow_issue
         }
       }
     }
@@ -25,16 +24,20 @@ export default function IssuesPage() {
   return (
     <div className="max-w-4xl mx-auto py-10 px-4">
       <header className="mb-8 flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-gray-900">Issues:</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Issues</h1>
       </header>
 
       <Filters />
 
       <ul role="list" className="divide-y divide-gray-100">
         {edges.length > 0 ? (
-          edges.map((edge) => (
-            <IssueRow key={edge.node.id} issue={edge.node} />
-          ))
+          edges.map((edge) => {
+            if (!edge?.node) return null;
+
+            return (
+              <IssueRow key={edge.node.id} issue={edge.node} />
+            );
+          })
         ) : (
           <li className="flex items-center justify-between gap-x-6 py-5">
             No issues found.
