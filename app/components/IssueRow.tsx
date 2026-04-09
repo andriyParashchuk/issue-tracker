@@ -1,8 +1,8 @@
 "use client";
 
 import { graphql, useFragment } from "react-relay";
-import type { IssueRow_issue$key } from "../app/__generated__/IssueRow_issue.graphql";
-import { IssueStatus, IssuePriority } from "../types";
+import type { IssueRow_issue$key } from "../__generated__/IssueRow_issue.graphql";
+import { IssueStatus, IssuePriority } from "../../types";
 import Link from "next/link";
 
 const statusStyles: Record<IssueStatus, string> = {

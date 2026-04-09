@@ -2,8 +2,8 @@
 
 import { graphql, useLazyLoadQuery } from "react-relay";
 import type { pageIssuesQuery } from "./__generated__/pageIssuesQuery.graphql";
-import { IssueRow } from "../components/IssueRow";
-import { Filters } from "../components/Filters";
+import { IssueRow } from "./components/IssueRow";
+import { Filters } from "./components/Filters";
 
 const query = graphql`
   query pageIssuesQuery {
@@ -11,6 +11,7 @@ const query = graphql`
       edges {
         node {
           id: nodeId
+          ...IssueRow_issue
         }
       }
     }

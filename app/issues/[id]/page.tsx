@@ -2,18 +2,20 @@
 
 import { graphql, useLazyLoadQuery } from "react-relay";
 import { useParams } from "next/navigation";
-import type { IssuePageQuery } from "../../__generated__/IssuePageQuery.graphql";
+import type { pageQuery } from "../../__generated__/PageQuery.graphql";
 
 const query = graphql`
-  query pageQuery($id: ID!) {
-    node(id: $id) {
-      ... on issues {
-        id: nodeId
-        title
-        description
-        status
-        priority
-        created_at
+  query pageQuery($id: UUID!) {
+    issuesCollection(filter: { id: { eq: $id } }, first: 1) {
+      edges {
+        node {
+          id: nodeId
+          title
+          description
+          status
+          priority
+          created_at
+        }
       }
     }
   }
@@ -25,7 +27,7 @@ export default function IssuePage() {
 
   const data = useLazyLoadQuery<IssuePageQuery>(query, { id });
 
-  const issue = data.node;
+  const issue = data.issuesCollection.edges[0]?.node;
 
   if (!issue) return <div>Issue not found</div>;
 
