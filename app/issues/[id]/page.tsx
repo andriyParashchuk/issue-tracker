@@ -11,7 +11,7 @@ const query = graphql`
     issuesCollection(filter: { id: { eq: $id } }, first: 1) {
       edges {
         node {
-          id: nodeId
+          id: id
           title
           description
           status

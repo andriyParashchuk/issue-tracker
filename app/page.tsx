@@ -11,7 +11,7 @@ const query = graphql`
     issuesCollection(first: 10) {
       edges {
         node {
-          id: nodeId
+          id: id
           ...IssueRow_issue
         }
       }

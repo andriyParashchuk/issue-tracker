@@ -19,7 +19,7 @@ const updateMutation = graphql`
     updateissuesCollection(filter: { id: { eq: $id } }, set: $set) {
       affectedCount
       records {
-        id: nodeId
+        id: id
         title
         description
         status

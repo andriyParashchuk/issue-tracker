@@ -28,7 +28,7 @@ export function IssueRow({ issue }: Props) {
   const data = useFragment(
     graphql`
       fragment IssueRow_issue on issues {
-        id: nodeId
+        id: id
         title
         status
         priority

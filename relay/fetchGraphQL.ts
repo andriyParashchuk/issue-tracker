@@ -1,9 +1,14 @@
-export async function fetchGraphQL<T>(
-  request: string | { text: string }, 
-  variables?: Record<string, unknown>
-): Promise<T> {
+import { RequestParameters, Variables } from "relay-runtime";
 
-  const queryText = typeof request === 'string' ? request : request.text;
+export async function fetchGraphQL(
+  request: RequestParameters,
+  variables: Variables
+) {
+  const queryText = request.text;
+
+  if (!queryText) {
+    throw new Error("Persisted queries are not supported. request.text is null");
+  }
 
   if (process.env.NODE_ENV === "development") {
     console.log("GraphQL Request:", { query: queryText, variables });
@@ -13,14 +18,14 @@ export async function fetchGraphQL<T>(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "apikey": process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      "Authorization": `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}`
+      apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!}`,
     },
     body: JSON.stringify({
       query: queryText,
-      variables
+      variables,
     }),
-    cache: "no-store"
+    cache: "no-store",
   });
 
   if (!res.ok) {
