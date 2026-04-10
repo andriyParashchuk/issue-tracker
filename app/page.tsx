@@ -3,7 +3,6 @@
 import { graphql, useLazyLoadQuery } from "react-relay";
 import type { pageIssuesQuery } from "./__generated__/pageIssuesQuery.graphql";
 import { IssueRow } from "./components/IssueRow";
-import { Filters } from "./components/Filters";
 
 const query = graphql`
   query pageIssuesQuery {
@@ -27,9 +26,6 @@ export default function IssuesPage() {
       <header className="mb-8 flex justify-between items-center">
         <h1 className="text-3xl font-bold text-gray-900">Issues</h1>
       </header>
-
-      <Filters />
-
       <ul role="list" className="divide-y divide-gray-100">
         {edges.length > 0 ? (
           edges.map((edge) => {

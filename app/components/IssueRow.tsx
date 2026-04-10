@@ -66,7 +66,6 @@ export function IssueRow({ issue }: Props) {
         >
           View issue
         </Link>
-        <a href="#" className="rounded-md bg-green-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-green-700 hover:bg-green-700 sm:block">Done</a>
       </div>
     </li>
   );
