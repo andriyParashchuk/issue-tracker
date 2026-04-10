@@ -106,9 +106,6 @@ export function IssueForm({ issueData }: Props) {
           placeholder="Issue Title"
           disabled={isSaving}
         />
-        <p className="text-sm text-slate-400 mt-2 font-medium">
-          Created: {new Date(issueData.created_at).toLocaleDateString()}
-        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">

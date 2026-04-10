@@ -61,8 +61,6 @@ export function IssueRow({ issue }: Props) {
           </p>
         </div>
         <div className="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-400">
-          <p className="whitespace-nowrap">{new Date(issueSafe.created_at).toLocaleDateString()}</p>
-          -
           <p className="truncate">{issueSafe.description}</p>
         </div>
       </div>
