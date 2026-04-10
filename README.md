@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Getting Started
 
-## Getting Started
+## 1. Clone repository
 
-First, run the development server:
+```bash
+git clone git@github.com:andriyParashchuk/issue-tracker.git
+cd issue-tracker
+```
+
+---
+
+## 2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+---
+
+## 3. Setup Supabase
+
+### Enable required extensions:
+
+In Supabase SQL editor:
+
+```sql
+create extension if not exists pg_graphql;
+```
+
+---
+
+### Create tables (example)
+
+```sql
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  avatar_url TEXT
+);
+
+CREATE TABLE issues (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title TEXT NOT NULL,
+  description TEXT,
+  status TEXT DEFAULT 'OPEN',
+  priority TEXT DEFAULT 'MEDIUM',
+  assignee_id UUID REFERENCES users(id),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE labels (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  color TEXT
+);
+
+CREATE TABLE issue_labels (
+  issue_id UUID REFERENCES issues(id) ON DELETE CASCADE,
+  label_id UUID REFERENCES labels(id) ON DELETE CASCADE,
+  PRIMARY KEY (issue_id, label_id)
+);
+
+CREATE TABLE comments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  issue_id UUID REFERENCES issues(id) ON DELETE CASCADE,
+  author_id UUID REFERENCES users(id),
+  body TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER PUBLICATION supabase_realtime ADD TABLE issues;
+```
+
+---
+
+### Ensure GraphQL API is enabled
+
+Supabase automatically exposes GraphQL at:
+
+```
+https://<project-ref>.supabase.co/graphql/v1
+```
+
+---
+
+## 4. Environment variables
+
+Create `.env.local`:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=your-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
+NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://your-project.supabase.co/graphql/v1
+```
+
+---
+
+## 5. Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App runs at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### Key fix
 
-To learn more about Next.js, take a look at the following resources:
+We replaced `nodeId` with `id` in Relay layer to ensure consistency across queries and mutations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ⚖️ Trade-offs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Add filters
+- Create Issue flow
+- Strict UI structure
+- Tests
+- Linting
