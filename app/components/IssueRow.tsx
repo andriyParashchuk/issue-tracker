@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { issueRowSchema } from "./IssueRow.schema";
 import { graphql, useFragment } from "react-relay";
 import type { IssueRow_issue$key } from "../__generated__/IssueRow_issue.graphql";
@@ -25,6 +26,12 @@ interface Props {
 }
 
 export function IssueRow({ issue }: Props) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const data = useFragment(
     graphql`
       fragment IssueRow_issue on issues {
@@ -47,6 +54,10 @@ export function IssueRow({ issue }: Props) {
   }
 
   const issueSafe = parsed.data;
+
+  if (!mounted) {
+    return <li className="py-5 animate-pulse bg-gray-50 rounded-lg h-20" />;
+  }
 
   return (
     <li className="flex items-center justify-between gap-x-6 py-5">
