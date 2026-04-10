@@ -1,7 +1,7 @@
 "use client";
 
 import { issueFormSchema } from "./IssueForm.schema";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { graphql, useMutation } from "react-relay";
 import type { IssueFormMutation } from "../__generated__/IssueFormMutation.graphql";
@@ -46,22 +46,12 @@ export function IssueForm({ issueData }: Props) {
   const [commit, isSaving] = useMutation<IssueFormMutation>(updateMutation);
 
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    status: "OPEN" as IssueStatus,
-    priority: "LOW" as IssuePriority,
-    labels: [] as IssueLabels[],
+    title: issueData.title || "",
+    description: issueData.description || "",
+    status: (issueData.status as IssueStatus) ?? "OPEN",
+    priority: (issueData.priority as IssuePriority) ?? "LOW",
+    labels: [] as IssueLabels[]
   });
-
-  useEffect(() => {
-    setFormData({
-      title: issueData.title || "",
-      description: issueData.description || "",
-      status: (issueData.status as IssueStatus) ?? "OPEN",
-      priority: (issueData.priority as IssuePriority) ?? "LOW",
-      labels: [],
-    });
-  }, [issueData]);
 
   const handleSave = () => {
     const result = issueFormSchema.safeParse(formData);
