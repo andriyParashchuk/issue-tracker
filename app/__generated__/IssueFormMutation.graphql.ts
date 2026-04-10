@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2b1784cab25ad87673e10528abae570e>>
+ * @generated SignedSource<<d0c6910040020401fa18358ea2e5210e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,14 +18,15 @@ export type issuesUpdateInput = {
   status?: string | null;
   title?: string | null;
 };
-export type pageUpdateIssueMutation$variables = {
+export type IssueFormMutation$variables = {
   id: any;
   set: issuesUpdateInput;
 };
-export type pageUpdateIssueMutation$data = {
+export type IssueFormMutation$data = {
   readonly updateissuesCollection: {
     readonly affectedCount: number;
     readonly records: ReadonlyArray<{
+      readonly created_at: any | null;
       readonly description: string | null;
       readonly id: string;
       readonly priority: string | null;
@@ -34,9 +35,9 @@ export type pageUpdateIssueMutation$data = {
     }>;
   };
 };
-export type pageUpdateIssueMutation = {
-  response: pageUpdateIssueMutation$data;
-  variables: pageUpdateIssueMutation$variables;
+export type IssueFormMutation = {
+  response: IssueFormMutation$data;
+  variables: IssueFormMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -133,6 +134,13 @@ v1 = [
             "kind": "ScalarField",
             "name": "priority",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "created_at",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -146,7 +154,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "pageUpdateIssueMutation",
+    "name": "IssueFormMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -155,20 +163,20 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "pageUpdateIssueMutation",
+    "name": "IssueFormMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "b44b30410fcfd0f2dd6ce00e97884623",
+    "cacheID": "9839d2c01369cddcd8416ef3c9dc77a2",
     "id": null,
     "metadata": {},
-    "name": "pageUpdateIssueMutation",
+    "name": "IssueFormMutation",
     "operationKind": "mutation",
-    "text": "mutation pageUpdateIssueMutation(\n  $id: UUID!\n  $set: issuesUpdateInput!\n) {\n  updateissuesCollection(filter: {id: {eq: $id}}, set: $set) {\n    affectedCount\n    records {\n      id\n      title\n      description\n      status\n      priority\n    }\n  }\n}\n"
+    "text": "mutation IssueFormMutation(\n  $id: UUID!\n  $set: issuesUpdateInput!\n) {\n  updateissuesCollection(filter: {id: {eq: $id}}, set: $set) {\n    affectedCount\n    records {\n      id\n      title\n      description\n      status\n      priority\n      created_at\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3a5ec5517efaac299a940e405cc37582";
+(node as any).hash = "f0701f073d10de560f5acf1bc093b723";
 
 export default node;
